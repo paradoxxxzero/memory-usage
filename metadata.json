@@ -1,0 +1,7 @@
+{
+    "shell-version": ["3.0.1"],
+    "uuid": "memory_usage@paradoxxx.zero.gmail.com",
+    "name": "memory-usage",
+    "url": "https://github.com/paradoxxxzero/memory-usage",
+    "description": "Display memory usage in status bar"
+}
