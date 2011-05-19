@@ -43,9 +43,20 @@ MemoryUsage.prototype = {
 
     _init: function() {
 	    Panel.__memory_usage = this;
-        PanelMenu.SystemStatusButton.prototype._init.call(this, 'folder', 'Memory Usage');
-        this._label = new St.Label({ style_class: 'memory-label', text: this._usage() });
-        this.actor.set_child(this._label);
+        PanelMenu.SystemStatusButton.prototype._init.call(this, 'help-browser-symbolic', 'Memory Usage');
+
+        this._box = new St.BoxLayout({ style_class: 'memory' });
+        this._label = new St.Label({ text: this._usage() });
+        this._icon = new St.Icon({ icon_type: St.IconType.SYMBOLIC, icon_size: Main.panel.button.height - 4, icon_name:'help-browser-symbolic'});
+        this._box.add_actor(this._icon);
+        this._box.add_actor(this._label);
+        this.actor.set_child(this._box);
+
+        this._menu_section = new PopupMenu.PopupMenuSection();
+        this.menu.addMenuItem(this._menu_section);
+        this._menu_item = new PopupMenu.PopupMenuItem("Memory Usage");
+        this._menu_section.addMenuItem(this._menu_item);
+
         GLib.timeout_add(0, 1000, function () {
             Panel.__memory_usage._label.set_text(Panel.__memory_usage._usage());
             return true;
@@ -60,7 +71,7 @@ MemoryUsage.prototype = {
             let free_lines = free[1].split("\n");
             let mem_params = free_lines[1].replace(/ +/g, " ").split(" ");
             let percentage = Math.round(mem_params[2]/mem_params[1]*100);
-            return percentage + "%";
+            return " " + percentage + "%";
         }
         return "N/A";
     },
