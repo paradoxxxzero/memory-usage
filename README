@@ -1,6 +1,6 @@
 Install:
 
-Install git if you don't have it:
+Install git if you don't have it: (sudo apt-get install git-core, sudo pacman -S git, etc)
 Then :
      mkdir -p ~/.local/share/gnome-shell/extensions
      cd ~/.local/share/gnome-shell/extensions
