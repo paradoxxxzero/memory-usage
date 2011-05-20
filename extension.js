@@ -40,34 +40,44 @@ MemoryUsage.prototype = {
         PanelMenu.SystemStatusButton.prototype._init.call(this, 'help-browser-symbolic', 'Memory Usage');
 
         this._box = new St.BoxLayout({ style_class: 'memory' });
-        this._label = new St.Label({ text: this._usage() });
+        this._label = new St.Label({ text: "N/A" });
         this._icon = new St.Icon({ icon_type: St.IconType.SYMBOLIC, icon_size: Main.panel.button.height - 4, icon_name:'help-browser-symbolic'});
         this._box.add_actor(this._icon);
         this._box.add_actor(this._label);
         this.actor.set_child(this._box);
 
-        this._menu_section = new PopupMenu.PopupMenuSection();
-        this.menu.addMenuItem(this._menu_section);
-        this._menu_item = new PopupMenu.PopupMenuItem("Memory Usage");
-        this._menu_section.addMenuItem(this._menu_item);
+        this._menu_section_mem = new PopupMenu.PopupMenuSection("Memory");
+        this.menu.addMenuItem(this._menu_section_mem);
+        this._menu_section_swap = new PopupMenu.PopupMenuSection("Swap");
+        this.menu.addMenuItem(this._menu_section_swap);
+        this._menu_item_mem = new PopupMenu.PopupMenuItem("Memory Usage: N/A");
+        this._menu_section_mem.addMenuItem(this._menu_item_mem);
+        this._menu_item_swap = new PopupMenu.PopupMenuItem("Swap Usage: N/A");
+        this._menu_section_mem.addMenuItem(this._menu_item_swap);
 
         GLib.timeout_add(0, 1000, function () {
-            Panel.__memory_usage._label.set_text(Panel.__memory_usage._usage());
+            Panel.__memory_usage._update();
             return true;
         });
     },
 
-    _usage: function() {
-        global.log(this);
-        global.log(this._label);
+    _update: function() {
         let free = GLib.spawn_command_line_sync('free -m');
         if(free[0]) {
             let free_lines = free[1].split("\n");
             let mem_params = free_lines[1].replace(/ +/g, " ").split(" ");
+            let swap_params = free_lines[3].replace(/ +/g, " ").split(" ");
             let percentage = Math.round(mem_params[2]/mem_params[1]*100);
-            return " " + percentage + "%";
+            Panel.__memory_usage._label.set_text(" " + percentage + "%");
+            Panel.__memory_usage._menu_item_mem.label.set_text(
+                "Memory Usage: " + mem_params[2] + "M / " + mem_params[1] + "M");
+            Panel.__memory_usage._menu_item_swap.label.set_text(
+                "Swap Usage: " + swap_params[2] + "M / " + swap_params[1] + "M");
+        } else {
+            Panel.__memory_usage._label.set_text("");
+            Panel.__memory_usage._menu_item_mem.label.set_text("Problem with `free -m` command");
+            Panel.__memory_usage._menu_item_swap.label.set_text("N/A");
         }
-        return "N/A";
     },
 
     _onDestroy: function() {}
