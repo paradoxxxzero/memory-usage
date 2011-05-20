@@ -16,12 +16,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Author: Florian Mounier aka paradoxxxzero
-// Description :
-//   This is an emacs major mode for jinja2 with:
-//        syntax highlighting
-//        sgml/html integration
-//        indentation (working with sgml)
-//        more to come
 
 const St = imports.gi.St;
 const GLib = imports.gi.GLib;
