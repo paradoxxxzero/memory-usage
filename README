@@ -4,7 +4,7 @@ Install git if you don't have it: (sudo apt-get install git-core, sudo pacman -S
 Then :
      mkdir -p ~/.local/share/gnome-shell/extensions
      cd ~/.local/share/gnome-shell/extensions
-     git clone git://github.com/paradoxxxzero/memory-usage.git
+     git clone git://github.com/paradoxxxzero/memory-usage.git memory_usage@paradoxxx.zero.gmail.com 
 And restart gnome-shell (Alt + F2 -> r) or reboot.
 
 License:

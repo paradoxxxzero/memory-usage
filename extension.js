@@ -37,11 +37,11 @@ MemoryUsage.prototype = {
 
     _init: function() {
 	    Panel.__memory_usage = this;
-        PanelMenu.SystemStatusButton.prototype._init.call(this, 'help-browser-symbolic', 'Memory Usage');
+        PanelMenu.SystemStatusButton.prototype._init.call(this, 'utilities-system-monitor', 'Memory Usage');
 
         this._box = new St.BoxLayout();
         this._label = new St.Label({ text: "N/A" });
-        this._icon = new St.Icon({ icon_type: St.IconType.SYMBOLIC, icon_size: Main.panel.button.height - 4, icon_name:'help-browser-symbolic'});
+        this._icon = new St.Icon({ icon_type: St.IconType.SYMBOLIC, icon_size: Main.panel.button.height - 4, icon_name:'utilities-system-monitor'});
         this._box.add_actor(this._icon);
         this._box.add_actor(this._label);
         this.actor.set_child(this._box);
