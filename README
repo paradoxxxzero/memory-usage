@@ -1,3 +1,14 @@
+Install:
+
+Install git if you don't have it:
+Then :
+     mkdir -p ~/.local/share/gnome-shell/extensions
+     cd ~/.local/share/gnome-shell/extensions
+     git clone git://github.com/paradoxxxzero/memory-usage.git
+And restart gnome-shell (Alt + F2 -> r) or reboot.
+
+License:
+
 memory-usage: Gnome shell extension displaying your memory usage
 Copyright (C) 2011 Florian Mounier aka paradoxxxzero
 
